@@ -1,15 +1,16 @@
 /******* Change Box Model ***************/
-/* *,
+*,
 *:before,
 *:after {
   box-sizing: border-box;
-} */
+}
 
 * {
 	margin: 0;
 	padding: 0;
   font-family: 'Raleway', sans-serif;
 }
+
 
 #top-header {
   display: flex;
@@ -50,17 +51,16 @@ nav ul li {
 }
 
 h2 {
-  margin: 3% 3% 3% 0;
+  margin: 3% 3% 3.5% 1%;
 }
 
 #features {
   position: relative;
-  font-weight: bold;
 }
 
 #feature-list {
   background-color: rgb(255,255,255,.6);
-  color: blue;
+  color: #00BFFF;
   padding: 1%;
   font-size: .75em;  
   position: absolute;
@@ -74,12 +74,15 @@ h2 {
 }
 
 #feature-list button {
-  background-color: blue;
+  background-color: 	#00BFFF;
   color: black;
-  font-weight: bold;
   border: none;
   padding: 3%;
   margin-top: 2%;
+}
+
+#reviews h2 {
+  margin-bottom: 2%;
 }
 
 #reviews {
@@ -89,7 +92,7 @@ h2 {
 }
 
 #reviews ul {
-  margin-left: 3%;
+  margin-left: 5%;
 }
 
 #reviews ul li {
@@ -109,7 +112,6 @@ h2 {
   justify-items: center;
   align-items: center;
   row-gap: 20px;
-  column-gap: 5px;
 }
 
 .flux-capacitor {
@@ -121,13 +123,14 @@ h2 {
 }
 
 .flux-capacitor img {
-  width: 75px;
-  height: 85px;
+  width: 65px;
+  height: 75px;
 }
 
 #flux {
-  background-color: blue;
-  width: 100%;
+  background-color: #00BFFF;
+  padding: 5px 40px 5px 40px;
+  border-style: solid;
 }
 
 .flame-decals {
@@ -138,9 +141,15 @@ h2 {
   align-items: center;
 }
 
+#flame {
+  background-color: 	#00BFFF;
+  padding: 5px 40px 5px 40px;
+  border-style: solid;
+}
+
 .flame-decals img {
-  width: 75px;
-  height: 85px;
+  width: 65px;
+  height: 75px;
 }
 
 .bumper-stickers {
@@ -152,8 +161,14 @@ h2 {
 
 }
 .bumper-stickers img {
-  width: 75px;
-  height: 85px;
+  width: 65px;
+  height: 75px;
+}
+
+#bumper {
+  background-color: #00BFFF;
+  padding: 5px 40px 5px 40px;
+  border-style: solid;
 }
 
 .hub-caps {
@@ -165,6 +180,84 @@ h2 {
 }
 
 .hub-caps img {
-  width: 75px;
-  height: 85px;
+  width: 65px;
+  height: 75px;
+}
+
+#hub {
+  background-color: #00BFFF;
+  padding: 5px 40px 5px 40px;
+  border-style: solid;
+}
+
+footer {
+  margin: 4% 0 0 1%;
+}
+
+@media only screen and (min-width: 640px) {
+  html {
+    background-image: url("/images/site/small_check.jpg");
+  }
+  
+  body {
+    background-color: white;
+    margin: 5% 8% 5% 8%;
+    border: solid 5px blue;
+    padding: 3%;
+  }
+
+  nav ul {
+    font-size: 1.75em;
+  }
+
+  #details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #reviews {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+
+  #reviews h2 {
+    margin-left: -4%;
+  }
+
+  #delorean_upgrades {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+
+  #delorean_upgrades h2 {
+    margin-left: 8.5%;
+  }
+
+  #delorean {
+    width: 50%;
+  }
+
+  #feature-list {
+    font-size: 1em;
+    top: 25%;
+    margin-left: 18%;
+  }
+
+  #reviews {
+    margin: auto;
+  }
+
+  #reviews h2 {
+    padding-bottom: 6%;
+  }
+
+  #reviews ul {
+    margin-left: 0;
+  }
+
+  #reviews ul li {
+    padding-top: 4%;
+    padding-bottom: 4%;
+  }
+
 }
