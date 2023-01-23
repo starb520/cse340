@@ -26,7 +26,7 @@ app.use(require("./routes/static"))
 
 // Index route
 app.get("/", function(req, res){
-  res.render("index", {title: "Main"})
+  res.render("index", {title: "Home"})
 })
 
 /* ***********************
