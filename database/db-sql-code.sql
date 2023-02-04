@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS public.client
 	client_password character varying NOT NULL,
 	client_type client_type NOT NULL DEFAULT 'Client'::client_type,
 	CONSTRAINT client_pkey PRIMARY KEY (client_id)
-)
+);
 
 -- Data for table 'classification'
 INSERT INTO public.classification (classification_name)
@@ -241,3 +241,8 @@ VALUES   (
     'White',
     5
   );
+
+  -- Update the file path names for inv_image and inv_thumbnail
+UPDATE inventory
+SET inv_image = REPLACE(inv_image, '/images', '/images/vehicles'),
+	inv_thumbnail= REPLACE(inv_thumbnail, '/images', '/images/vehicles');
