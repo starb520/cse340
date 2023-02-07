@@ -10,7 +10,7 @@ Util.buildNav = function (data) {
     data.rows.forEach((row) => {
         list += "<li>"
         list += 
-            '<a href="/inv/type' +
+            '<a href="/inv/type/' +
             row.classification_id + 
             '" title="See our inventory of ' +
             row.classification_name + 
