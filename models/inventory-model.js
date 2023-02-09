@@ -13,5 +13,14 @@ async function getVehiclesByClassificationId(classificationId) {
     }
 }
 
+async function getVehiclesByInventoryID(inventory_id) {
+    try {
+        const data = await pool.query("SELECT * FROM public.inventory WHERE inv_id = $1", [inventory_id])
+        return data.rows
+    } catch (error) {
+        console.error('getclassificationsbyid error' + error)
+    }
+}
 
-module.exports = {getClassifications, getVehiclesByClassificationId};
+// add a getvehiclesbyid async await function
+module.exports = {getClassifications, getVehiclesByClassificationId, getVehiclesByInventoryID};
