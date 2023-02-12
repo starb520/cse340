@@ -24,7 +24,7 @@ invCont.buildByInventoryID = async function (req, res, next) {
         title: "vehicles",
         nav,
         message: null,
-        data,
+        data: data[0]
     })
 }
 

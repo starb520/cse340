@@ -1,36 +1,30 @@
 <!-- content heading -->
 <% if (title) { %>
-    <h1><%= title %></h1>
+    <div id="details-heading">
+        <h1><%= data.inv_year %> <%= data.inv_make %> <%= data.inv_model %></h1>
+    </div>
     <% } else {
         res.redirect('/')
     } %>
     
     <!-- message block -->
-    <% if (message) { %>
-    <p class="notice"><%= message %></p>}
-    <% } %>
-    
-    <!-- vehicles display -->
-    <% if(data.length > 0){ %>
-    <ul id="inv-display">
-        <% 
-        // Note: Each element from the array must be in its own ejs block.
-        // Combining more than one element will result in a parse error!
-        data.forEach((vehicle)=>{ %>
-        <li>
-            <a href="../../inv/detail/<%= vehicle.inv_id %>" title="View <%= vehicle.inv_make %> <%= vehicle.inv_model %> details"><img src="<%= vehicle.inv_thumbnail %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %> on CSE Motors"></a>
-            <div class="namePrice">
-                <hr>
-                <h2><a href="../../inv/detail/<%= vehicle.inv_id %>" title="View <%= vehicle.inv_make %> <%= vehicle.inv_model %> details"><%= vehicle.inv_make %> <%= vehicle.inv_model %></a>
-                </h2>
-                <span>$<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price)%></span>
-            </div>
-        </li>
-        <% }) %>
-    </ul>
-    <% } else { %> 
-        <p class="notice">Sorry, no matching vehicles could be found.</p>
-        <% } %>
+<% if (message) { %>
+<p class="notice"><%= message %></p>}
+<% } %>
+
+<div id="vehicle-details">
+<!-- display vehicle inventory image -->
+    <img src="<%=data.inv_image%>">
+
+    <section id="vehicle-inv-details">
+        <h2><%=data.inv_make %> <%= data.inv_model %></h2>
+        <h3>Price $<%= new Intl.NumberFormat('en-US').format(data.inv_price)%></h3>
+        <h4 class="description">Description: <%= data.inv_description %></h4>
+        <h3>Color: <%=data.inv_color%></h3>
+        <h3>Miles: <%= new Intl.NumberFormat('en-US').format(data.inv_miles)%></h3>
+    </section>
+</div>
+
         
     
     

@@ -1,9 +1,9 @@
 /******* Change Box Model ***************/
-*,
+ *,
 *:before,
 *:after {
   box-sizing: border-box;
-}
+} 
 
 * {
 	margin: 0;
@@ -194,6 +194,57 @@ footer {
   margin: 4% 0 0 1%;
 }
 
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+  list-style-type: none;
+  
+ }
+
+ #inv-display li {
+   width: 250px;
+   height: 250px;
+   border: solid 2px #c9c9c9;   
+   border-radius: 5px; 
+ }
+
+ #inv-display img {
+   width: 200px;
+   height: 113px;
+   margin-left: 9%;
+   margin-top: 2%;
+   border-radius: 5px;
+ }
+
+ #inv-display li a {
+   text-decoration: none;
+ }
+
+ .namePrice {
+   text-align: center;
+ }
+
+ #details-heading {
+  margin-top: 3%;
+  margin-left: 3%;
+ }
+
+ #vehicle-details img {
+  width: 75%;
+  margin: 5% 12% 5% 12%;
+}
+
+#vehicle-inv-details h2, h3, h4 {
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+#vehicle-inv-details h3 {
+  background-color: #EBECF0;
+}
+
 @media only screen and (min-width: 640px) {
   html {
     background-image: url("/images/site/small_check.jpg");
@@ -260,4 +311,13 @@ footer {
     padding-bottom: 4%;
   }
 
+  #vehicle-details {
+    display: flex;
+  }
+
+  #vehicle-details img {
+    width: 50%;
+    margin: 2%;
+  }
+ 
 }
