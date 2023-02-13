@@ -3,7 +3,6 @@ const Util = {}
 
 
 // Constructs the nav HTML unordered list
-
 Util.buildNav = function (data) {
     let list = "<ul>"
     list += '<li><a href="/" title="Home page">Home</a></li>' 

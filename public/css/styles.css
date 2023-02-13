@@ -36,7 +36,6 @@
 
 nav {
   background-color: black;
-  color: white;
   padding: 2%;
 }
 
@@ -48,6 +47,11 @@ nav ul {
 nav ul li {
   list-style-type: none;
   font-size: 1em;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: whitesmoke;
 }
 
 h2 {
