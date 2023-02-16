@@ -11,7 +11,7 @@ router.get("/login", accController.buildLogin);
 router.get("/register", accController.buildRegister);
 
 // build a route to send info from the register form to the database
-router.post('/register', accController.registerClient);
+router.post("/register", accController.registerClient);
 
 
 module.exports = router;
