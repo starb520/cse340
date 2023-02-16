@@ -8,14 +8,14 @@
     <p class="notice"><%= message %></p>
     <% } %>
 
-<form action="#" method="post">
+<form action="/client/register" method="post">
     <!-- first name -->
-    <label for="client_fname">First Name</label>
-    <input type="text" name="client_fname" id="client_fname">
+    <label for="client_firstname">First Name</label>
+    <input type="text" name="client_firstname" id="client_firstname">
 
     <!-- last name -->
-    <label for="client_lname">Last Name</label>
-    <input type="text" name="client_lname" id="client_lname">
+    <label for="client_lastname">Last Name</label>
+    <input type="text" name="client_lastname" id="client_lastname">
 
     <!-- email -->
     <label for="email">Email Address:</label>
@@ -23,8 +23,10 @@
 
     <!-- password, 12 chars, 1 capital, 1 number, 1 special character -->
     <label  for="client_password">Password</label>
-    <input type="password" name="client_password" minlength="12" >
+    <input type="password" name="client_password" minlength="12">
 
+    <!-- pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,}$" -->
+    
     <!-- register button -->
     <input id="submit" type="submit" value="Register">
 </form>
