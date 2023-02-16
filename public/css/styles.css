@@ -249,6 +249,35 @@ footer {
   background-color: #EBECF0;
 }
 
+/* Registration Form CSS */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+form label {
+  padding-top: 5px;
+}
+
+form input {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+form #submit {
+  width: 25%;
+  padding-top: 5px;
+  margin:auto;
+}
+
+#registration-view-request {
+  width: 150px;
+  margin: auto;
+  margin-top: 5px;
+}
+
 @media only screen and (min-width: 640px) {
   html {
     background-image: url("/images/site/small_check.jpg");

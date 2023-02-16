@@ -1,5 +1,5 @@
-const invModel = require("../models/inventory-model")
-const utilities = require("../utilities")
+const invModel = require("../models/inventory-model")  // path to the inventory-model, functions to query SQL database
+const utilities = require("../utilities")              // path to utilities folder
 
 const invCont = {}
 
@@ -16,15 +16,16 @@ invCont.buildByClassification = async function (req, res, next) {
     })
 }
 
-invCont.buildByInventoryID = async function (req, res, next) {
-    const inventoryID = req.params.inventory_id
-    let data = await invModel.getVehiclesByInventoryID(inventoryID)
+invCont.buildByInventoryId = async function (req, res, next) {
+    const inventoryId = req.params.inventoryId
+    let data = await invModel.getVehiclesByInventoryId(inventoryId)
+    let view = await utilities.displayInvDetails(data);
     let nav = await utilities.getNav()
     res.render("./inventory/inventory-detail", {
-        title: "vehicles",
+        title: `${data[0].inv_make} ${data[0].inv_model}`,
         nav,
         message: null,
-        data: data[0]
+        view,
     })
 }
 

@@ -1,0 +1,20 @@
+<!-- content heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<!-- message block -->
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+    <% } %>
+   
+<form action="#" method="post">
+    <label for="client_username">Username</label>
+    <input type="text" name="client_username" id="client_username">
+    <label  for="client_password">Password</label>
+    <input type="password" name="client_password">
+    <input id="submit" type="submit" value="Log In">
+</form>
+
+ <!-- need to add the "My Account" path "/client/register"  -->
+<div id="registration-view-request">No account? <a href="/client/register">Sign-up</a></div>  

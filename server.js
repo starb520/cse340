@@ -31,7 +31,14 @@ app.use(require("./routes/static"))
 // })
 app.get("/", baseController.buildHome)
 
+// inventory route
 app.use("/inv", require("./routes/inventory-route"))
+
+// account route
+app.use("/client",require("./routes/account-route"))
+
+
+
 
 /* ***********************
  * Local Server Information
@@ -44,5 +51,5 @@ const host = process.env.HOST
  * Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
+  console.log(`app listening on http://${host}:${port}`)
 })

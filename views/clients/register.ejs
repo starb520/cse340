@@ -1,0 +1,31 @@
+<!-- content heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<!-- message block -->
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+    <% } %>
+
+<form action="#" method="post">
+    <!-- first name -->
+    <label for="client_fname">First Name</label>
+    <input type="text" name="client_fname" id="client_fname">
+
+    <!-- last name -->
+    <label for="client_lname">Last Name</label>
+    <input type="text" name="client_lname" id="client_lname">
+
+    <!-- email -->
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email">
+
+    <!-- password, 12 chars, 1 capital, 1 number, 1 special character -->
+    <label  for="client_password">Password</label>
+    <input type="password" name="client_password" minlength="12" >
+
+    <!-- register button -->
+    <input id="submit" type="submit" value="Register">
+</form>
+    

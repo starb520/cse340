@@ -13,14 +13,14 @@ async function getVehiclesByClassificationId(classificationId) {
     }
 }
 
-async function getVehiclesByInventoryID(inventory_id) {
+async function getVehiclesByInventoryId(inventoryId) {
     try {
-        const data = await pool.query("SELECT * FROM public.inventory WHERE inv_id = $1", [inventory_id])
+        const data = await pool.query("SELECT * FROM public.inventory WHERE inv_id = $1", [inventoryId])
         return data.rows
     } catch (error) {
-        console.error('getclassificationsbyid error' + error)
+        console.error('getvehiclebyid error' + error)
     }
 }
 
 // add a getvehiclesbyid async await function
-module.exports = {getClassifications, getVehiclesByClassificationId, getVehiclesByInventoryID};
+module.exports = {getClassifications, getVehiclesByClassificationId, getVehiclesByInventoryId};
