@@ -1,0 +1,19 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      
+    } %>
+
+
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+    <% } %>
+
+
+<h3>Field is Required</h3>
+<form action="/inv/add-classification" method="post">
+    <label for="classification_name">Classification Name</label>
+    <p>NAME MAY NOT CONTAIN A SPACE OR SPECIAL CHARACTER OF ANY KIND</p>
+    <input type="text" name="classification_name" id="classification_name">
+    <input id="submit" type="submit" value="Add Classification">
+</form>
