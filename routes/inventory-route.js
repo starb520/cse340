@@ -9,4 +9,7 @@ router.get("/type/:classificationId", invController.buildByClassification);
 // Route to inventory details
 router.get("/detail/:inventoryId", invController.buildByInventoryId);
 
+// route to get a new classification from user input
+router.get("/management-view", invController.getNewClassification);
+
 module.exports = router;

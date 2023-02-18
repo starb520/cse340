@@ -18,15 +18,15 @@ async function buildLogin(req, res, next) {
 /*****************************************
 *  Deliver registration view
 **************************************** */
-  async function buildRegister(req, res, next) {
-    let nav = await utilities.getNav()
-    res.render("clients/register", {
-      title: "Register",
-      nav, 
-      errors: null,
-      message: null,
-    })
-  }
+async function buildRegister(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("clients/register", {
+    title: "Register",
+    nav, 
+    errors: null,
+    message: null,
+  })
+}
 
 
 /* ****************************************
@@ -43,7 +43,7 @@ async function registerClient(req, res) {
     client_email,
     client_password
   )
-  console.log(regResult)
+  // console.log(regResult)
   if (regResult) {
     res.status(201).render("clients/login.ejs", {
       title: "Login",

@@ -29,4 +29,15 @@ invCont.buildByInventoryId = async function (req, res, next) {
     })
 }
 
+
+// function to get a new classification from user
+invCont.getNewClassification = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("../views/inventory/management-view.ejs", {
+      title: "Add A New Inventory Classification",
+      nav,
+      message: null,
+    })
+  }
+
 module.exports = invCont;
