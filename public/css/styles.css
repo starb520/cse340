@@ -255,6 +255,9 @@ form {
   flex-direction: column;
   width: 50%;
   margin: auto;
+  border-style: solid;
+  border-radius: 8px;
+  padding: 2%;
 }
 
 form label {
@@ -267,9 +270,15 @@ form input {
 }
 
 form #submit {
-  width: 25%;
+  width: 45%;
   padding-top: 5px;
-  margin:auto;
+  border-radius: 15px;
+  margin: auto;
+}
+
+form p {
+  font-size: 11px;
+  color: red;
 }
 
 #registration-view-request {
