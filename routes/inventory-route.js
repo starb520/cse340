@@ -18,6 +18,11 @@ router.get("/add-classification", invController.getNewClassification);
 // build a route to send the add new classification input to the database
 router.post("/add-classification", invController.addNewClassification);
 
+// build a route to display a form to receive user input to add a new vehicle
+router.get("/add-vehicle", invController.getNewVehicle);
+
+// build a route to send user input to database to add a vehicle to the inventory
+router.post("/add-vehicle", invController.addNewVehicle);
 
 
 module.exports = router;

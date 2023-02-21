@@ -48,4 +48,19 @@ Util.displayInvDetails = function (data) {
     return html
 }
 
+Util.displayClassifications = async function (data) {
+    let list = "<select id='classification_id' name='classification_id'>"
+    data.rows.forEach((row) => {
+        list += "<option value='" + row.classification_id +"'>"
+        list += row.classification_name
+        list += "</option>"
+    },
+    
+    )
+    list += '</select>'
+    return list
+}
+
+
+
 module.exports = Util
