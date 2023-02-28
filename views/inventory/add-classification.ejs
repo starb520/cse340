@@ -9,11 +9,23 @@
     <p class="notice"><%= message %></p>
     <% } %>
 
+    <!-- display messages for any part of the form that does not meet the requirements for validation -->
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
 
 <form action="/inv/add-classification" method="post">
     <div id="required">Field is Required</div>
+
+    <!-- input box to allow user to enter a new classification -->
     <label for="classification_name">Classification Name</label>
     <p>NAME MAY NOT CONTAIN A SPACE OR SPECIAL CHARACTER OF ANY KIND</p>
-    <input type="text" name="classification_name" id="classification_name">
+    <input type="text" name="classification_name" id="classification_name" placeholder="e.g. Sedan" required pattern="^[a-zA-Z]{3,12}$">
+
+    <!-- submit button to add a classification -->
     <input id="submit" type="submit" value="Add Classification">
 </form>

@@ -8,27 +8,34 @@
     <p class="notice"><%= message %></p>
     <% } %>
 
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
 <form action="/client/register" method="post">
     <!-- first name -->
     <label for="client_firstname">First Name</label>
-    <input type="text" name="client_firstname" id="client_firstname">
+    <input type="text" name="client_firstname" id="client_firstname" required value="<%= locals.client_firstname %>">
 
     <!-- last name -->
     <label for="client_lastname">Last Name</label>
-    <input type="text" name="client_lastname" id="client_lastname">
+    <input type="text" name="client_lastname" id="client_lastname" required value="<%= locals.client_lastname %>">
 
     <!-- email -->
     <label for="client_email">Email Address:</label>
-    <input type="email" id="client_email" name="client_email">
+    <input type="email" id="client_email" name="client_email" required value="<%= locals.client_email %>">
 
     <!-- password, 12 chars, 1 capital, 1 number, 1 special character -->
     <label  for="client_password">Password</label>
-    <p>Password must contain at least 12 characters, 1 capital letter, 1 number, and 1 special character.</p>
-    <input type="password" id="client_password" name="client_password" minlength="12" required>
-
-    <!-- pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,}$" -->
+    <div id="passwordReqs">Password must contain at least 12 characters, 1 capital letter, 1 number, and 1 special character.</div>
+    <input type="password" id="client_password" name="client_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
     
     <!-- register button -->
     <input id="submit" type="submit" value="Register">
 </form>
     
+

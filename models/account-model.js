@@ -23,5 +23,19 @@ async function registerClient (
     }
 }
 
+
+/* **********************
+ *   Check database for existing email 
+ * ********************* */
+async function checkExistingEmail(client_email){
+    try {
+      const sql = "SELECT * FROM client WHERE client_email = $1"
+      const email = await pool.query(sql, [client_email])
+      return email.rowCount
+    } catch (error) {
+      return error.message
+    }
+  }
+
 // adds the functions created in this file to exports to make them available elsewhere when needed
-module.exports = {registerClient};
+module.exports = {registerClient, checkExistingEmail};

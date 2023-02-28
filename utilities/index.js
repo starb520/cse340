@@ -48,15 +48,17 @@ Util.displayInvDetails = function (data) {
     return html
 }
 
-Util.displayClassifications = async function (data) {
+Util.displayClassifications = async function (classification_id = null) {
+    let classifications = await invModel.getClassifications()
     let list = "<select id='classification_id' name='classification_id'>"
-    data.rows.forEach((row) => {
-        list += "<option value='" + row.classification_id +"'>"
-        list += row.classification_name
-        list += "</option>"
-    },
-    
-    )
+    list += "<option>Choose a Classification</option>"
+    classifications.rows.forEach((row) => {
+        list += "<option value='" + row.classification_id +"'"
+            if (classification_id != null && row.classification_id == classification_id) {
+                list += " selected "
+        }
+        list += ">" + row.classification_name + "</option>"
+    })
     list += '</select>'
     return list
 }

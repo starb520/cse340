@@ -276,6 +276,11 @@ form #submit {
   margin: auto;
 }
 
+form #passwordReqs {
+  font-size: 11px;
+  color: #ce2029;
+}
+
 form p {
   font-size: 11px;
   color: #ce2029;

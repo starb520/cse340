@@ -8,13 +8,31 @@
     <p class="notice"><%= message %></p>
     <% } %>
    
-<form action="#" method="post">
+<!-- display messages for any part of the form that does not meet the requirements for validation -->
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+
+<form id="loginForm" action="/client/login" method="post">
+
+    <!-- client username -->
     <label for="client_username">Username</label>
-    <input type="text" name="client_username" id="client_username">
+    <input type="email" name="client_email" id="client_username" required value="<%= locals.client_email %>">
+
+    <!-- client password -->
     <label  for="client_password">Password</label>
-    <input type="text" name="client_password" id="client_password">
+    <div id="passwordReqs">Password must contain at least 12 characters, 1 capital letter, 1 number, and 1 special character.</div>
+    <input type="password" name="client_password" id="client_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+
+    <!-- submit button to log into account -->
     <input id="submit" type="submit" value="Log In">
 </form>
 
- <!-- need to add the "My Account" path "/client/register"  -->
+ <!-- path that leads a new user to register -->
 <div id="registration-view-request">No account? <a href="/client/register">Sign-up</a></div>  
+

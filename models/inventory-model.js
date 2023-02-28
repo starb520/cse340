@@ -22,6 +22,19 @@ async function getVehiclesByInventoryId(inventoryId) {
     }
 }
 
+/* **********************
+ *   Check database for classification name so there are not duplicate classifications
+ *   added to the database and thus appearing on the nav bar 
+ * ********************* */
+async function checkClassification(classification_name){
+    try {
+      const sql = "SELECT * FROM classification WHERE classification_name = $1"
+      const classification = await pool.query(sql, [classification_name])
+      return classification.rowCount
+    } catch (error) {
+      return error.message
+    }
+  }
 
 // Add a New Classifcation to the Classification Table
 async function addNewClassification (classification_name) {
@@ -47,4 +60,4 @@ async function addNewVehicle (inv_make, inv_model, inv_year, inv_description, in
 }
 
 
-module.exports = {getClassifications, getVehiclesByClassificationId, getVehiclesByInventoryId, addNewClassification, addNewVehicle};
+module.exports = {getClassifications, getVehiclesByClassificationId, getVehiclesByInventoryId, addNewClassification, addNewVehicle, checkClassification};

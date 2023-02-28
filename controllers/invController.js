@@ -3,6 +3,7 @@ const utilities = require("../utilities")              // path to utilities fold
 
 const invCont = {}
 
+// build a view of vehicles when the user clicks on a classification
 invCont.buildByClassification = async function (req, res, next) {
     const classificationId = req.params.classificationId
     let data = await invModel.getVehiclesByClassificationId(classificationId)
@@ -13,9 +14,11 @@ invCont.buildByClassification = async function (req, res, next) {
         nav, 
         message: null,
         data,
+        errors: null,
     })
 }
 
+// individual vehicle details display
 invCont.buildByInventoryId = async function (req, res, next) {
     const inventoryId = req.params.inventoryId
     let data = await invModel.getVehiclesByInventoryId(inventoryId)
@@ -26,6 +29,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
         nav,
         message: null,
         view,
+        errors: null,
     })
 }
 
@@ -36,6 +40,7 @@ invCont.buildVehicleManagement = async function (req, res, next) {
       title: "Vehicle Management",
       nav,
       message: null,
+      errors: null,
     })
   }
 
@@ -46,6 +51,7 @@ invCont.getNewClassification = async function (req, res, next) {
        title: "Add New Vehicle Classification",
        nav,
        message: null, 
+       errors: null,
     })
  }
 
@@ -88,6 +94,7 @@ invCont.getNewVehicle = async function (req, res, next) {
        nav,
        message: null, 
        classificationMenu,
+       errors: null,
     })
  }
 
@@ -107,7 +114,7 @@ invCont.addNewVehicle = async function (req, res) {
     res.status(201).render("../views/inventory/management-view.ejs", {
       title: "Vehicle Management",
       nav,
-      message: `Congratulations, you\'ve added a ${inv_make, inv_model} vehicle classification.`,
+      message: `Congratulations, you\'ve added a ${inv_make, inv_model} vehicle.`,
       errors: null,
     })
   } else {
