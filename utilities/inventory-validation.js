@@ -114,13 +114,13 @@ validate.vehicleRules = () => {
 * process.
 ************************************************/
 validate.checkVehicleData = async (req, res, next) => {
-    const { inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color } = req.body
+    const { inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color, classification_id } = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
         let classifications = await inventoryModel.getClassifications()
-        let classificationMenu = await utilities.displayClassifications(classifications)
+        let classificationMenu = await utilities.displayClassifications(classification_id)
         res.render("../views/inventory/add-vehicle", {
             errors,
             message: null,
@@ -133,6 +133,7 @@ validate.checkVehicleData = async (req, res, next) => {
             inv_year,
             inv_miles,
             inv_color,
+            classification_id,
             classificationMenu,
         })
         return
