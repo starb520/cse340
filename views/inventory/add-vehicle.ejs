@@ -27,7 +27,7 @@
     <input type="text" name="inv_model" id="inv_model" placeholder="Min of 3 characters" required pattern="^[a-zA-Z]{3,}$" value="<%= locals.inv_model %>">
 
     <label for="inv_description">Description</label>
-    <textarea name="inv_description" id="inv_description" required pattern="^[a-zA-Z]{3,}$" value="<%= locals.inv_description %>"></textarea>
+    <textarea name="inv_description" id="inv_description" required>"<%= locals.inv_description %>"</textarea>
 
     <label for="inv_image">Image Path</label>
     <input type="text" name="inv_image" id="inv_image" value="/images/vehicles/no-image.png">
@@ -36,14 +36,14 @@
     <input type="text" name="inv_thumbnail" id="inv_thumbnail" value="/images/vehicles/no-image.png">
 
     <label for="inv_price">Price</label>
-    <input type="number" name="inv_price" id="inv_price" placeholder="e.g. 2500" required pattern="^\d+(.\d{1,2})?$" value="<%= locals.inv_price %>">
+    <input type="text" name="inv_price" id="inv_price" placeholder="e.g. 2500" required pattern="^\d+(.\d{1,2})?$" value="<%= locals.inv_price %>">
 
     <label for="inv_year">Year</label>
-    <input type="number" name="inv_year" id="inv_year" placeholder="e.g. 2005" required pattern="^[12][0-9]{3}$" value="<%= locals.inv_year %>">
+    <input type="text" name="inv_year" id="inv_year" placeholder="e.g. 2005" required pattern="^[12][0-9]{3}$" value="<%= locals.inv_year %>">
 
     <label for="inv_miles">Miles</label>
-    <input type="number" name="inv_miles" id="inv_miles" placeholder="e.g. 19000" required pattern="^\d+(\d{1,2})?$" value="<%= locals.inv_miles %>">
-
+    <input type="text" name="inv_miles" id="inv_miles" placeholder="e.g. 19000" required   pattern="^\d+(\d{1,2})?$" value="<%= locals.inv_miles %>">
+  
     <label for="inv_color">Color</label>
     <input type="text" name="inv_color" id="inv_color" placeholder="e.g. blue" required pattern="^[a-zA-Z]{3,}$" value="<%= locals.inv_color %>">
 
