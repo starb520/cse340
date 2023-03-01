@@ -72,7 +72,7 @@ validate.vehicleRules = () => {
       body("inv_description")
         .trim()
         .escape()
-        .isLength({min: 50})
+        .isLength({min: 3})
         .withMessage("Please provide a vehicle description."),
   
       // password is required and must be strong password
@@ -80,20 +80,22 @@ validate.vehicleRules = () => {
         .trim()
         .escape()
         .isLength({ min: 1 })
-        .withMessage("Please provide the vehicle description."),
+        .isNumeric()
+        .withMessage("Please provide the vehicle price"),
 
       // valid email is required and cannot already exist in the DB
       body("inv_year")
         .trim()
         .escape()
+        .isNumeric()
         .isLength({ min: 4 })
-        // .isNumeric(str [ options])     // check if input are digits
         .withMessage("Please provide the vehicle year."),
 
       // valid email is required and cannot already exist in the DB
       body("inv_miles")
         .trim()
         .escape()
+        .isNumeric()
         .isLength({ min: 1 })
         .withMessage("Please provide the number of miles."),
 
