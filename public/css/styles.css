@@ -253,8 +253,8 @@ footer {
 form {
   display: flex;
   flex-direction: column;
-  width: 50%;
   margin: auto;
+  width: 90%;
   border-style: solid;
   border-radius: 8px;
   padding: 2%;
@@ -365,6 +365,10 @@ form p {
   #vehicle-details img {
     width: 50%;
     margin: 2%;
+  }
+
+  form {
+    width: 50%;
   }
  
 }

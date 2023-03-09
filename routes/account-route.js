@@ -12,18 +12,24 @@ router.get("/login", accController.buildLogin);
 // route to build the registration view
 router.get("/register", accController.buildRegister);
 
-// build a route to send info from the register form to the database, but validate data first
+
+// build a route to send info from the registration form to the database, but validate data first
 router.post("/register", 
     regValidate.registrationRules(),
     regValidate.checkRegData,
     accController.registerClient)
 
+
+// routes to handle user login
 router.post("/login", 
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    (req, res) => {
-    res.status(200).send('login process')
-    }
-)
+    accController.loginClient)
+
+
+router.get("/", util.checkJWTToken, util.jwtAuth, accController.manageAccount);
+
+
+// middleware
 
 module.exports = router;

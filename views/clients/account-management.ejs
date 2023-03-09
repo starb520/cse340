@@ -1,0 +1,20 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      
+    } %>
+
+
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+    <% } %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<h1>You're Logged In</h1>

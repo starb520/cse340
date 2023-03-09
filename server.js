@@ -11,12 +11,17 @@ const env = require("dotenv").config()
 const app = express()
 const baseController = require("./controllers/baseController")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+const utilities = require("./utilities/index")
 
 /* ***********************
  * Middleware
  *************************/
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true})) // for parsing application/x-www-form-urlencoded
+app.use(cookieParser())
+// app.use(utilities.checkClientLogin)
+
 
 
 /* ***********************
@@ -36,7 +41,7 @@ app.use(require("./routes/static"))
 // app.get("/", function(req, res){
 //   res.render("index", {title: "Home"})
 // })
-app.get("/", baseController.buildHome)
+app.get("/", utilities.checkClientLogin, baseController.buildHome)
 
 // inventory route
 app.use("/inv", require("./routes/inventory-route"))
