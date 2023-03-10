@@ -20,7 +20,7 @@ const utilities = require("./utilities/index")
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true})) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser())
-// app.use(utilities.checkClientLogin)
+app.use(utilities.checkClientLogin)
 
 
 
@@ -41,13 +41,13 @@ app.use(require("./routes/static"))
 // app.get("/", function(req, res){
 //   res.render("index", {title: "Home"})
 // })
-app.get("/", utilities.checkClientLogin, baseController.buildHome)
+app.get("/", baseController.buildHome)
 
 // inventory route
 app.use("/inv", require("./routes/inventory-route"))
 
 // account route
-app.use("/client",require("./routes/account-route"))
+app.use("/client", require("./routes/account-route"))
 
 
 /* ***********************

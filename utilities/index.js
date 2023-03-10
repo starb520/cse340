@@ -87,6 +87,7 @@ Util.jwtAuth = (req, res, next) => {
     try {
         const clientData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
         req.clientData = clientData
+        res.locals.clientData = clientData
         next()
     } catch (error){
         res.clearCookie("jwt", { httpOnly: true })
@@ -106,5 +107,25 @@ Util.checkClientLogin = (req, res, next) => {
         next()
     }
 }
+
+/*****************************
+ * Middleware to check for client level.
+ * See account-management.ejs partial and 
+ * account-route file.
+ *****************************/
+Util.checkClientLevel = (req, res, next) => {
+    const token = req.cookies.jwt
+    try {   
+        if (res.locals.client_type == "Admin" || res.locals.client_type == "Employee") {
+            res.locals.client_type = 1
+        }
+        else {
+            res.status(403).redirect("/")
+        }
+        next()
+    } catch (error){
+        return res.status(403).redirect("/")
+    }
+    }
 
 module.exports = Util

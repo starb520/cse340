@@ -125,5 +125,13 @@ async function manageAccount(req, res, next) {
   })
 }
 
+/*****************************************
+*  Deliver home view when a client is logged out
+*  of their account.
+*****************************************/
+async function logoutClient(req, res, next) {
+  res.clearCookie("jwt", { httpOnly: true })
+  res.redirect('/')
+}
 
-  module.exports = { buildLogin, buildRegister, registerClient, loginClient, manageAccount }
+  module.exports = { buildLogin, buildRegister, registerClient, loginClient, manageAccount,  logoutClient}

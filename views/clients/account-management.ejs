@@ -18,3 +18,12 @@
 <% } %>
 
 <h1>You're Logged In</h1>
+<h1> <%= locals.clientData.client_type %> </h1>
+<h1> <%= locals.clientData.client_firstname %> </h1>
+
+<% if(locals.clientData.client_type) { %>
+    <span class="add-classification"><a href="/inv/add-classification">Add New Classification</a></span>
+    <span class="add-vehicle"><a href="/inv/add-classification">Add New Vehicle</a></span>
+<% } %>
+    
+ 

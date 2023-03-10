@@ -3,6 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const invController = require("../controllers/invController");
 const invValidate = require('../utilities/inventory-validation.js')
+const utilities = require('../utilities')
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassification);
@@ -11,7 +12,7 @@ router.get("/type/:classificationId", invController.buildByClassification);
 router.get("/detail/:inventoryId", invController.buildByInventoryId);
 
 // route to get a new classification from user input
-router.get("/", invController.buildVehicleManagement);
+router.get("/", utilities.checkClientLevel, invController.buildVehicleManagement);
 
 // build a route to display a form to receive user input to add a new classification
 router.get("/add-classification", invController.getNewClassification);

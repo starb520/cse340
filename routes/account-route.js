@@ -29,7 +29,7 @@ router.post("/login",
 
 router.get("/", util.checkJWTToken, util.jwtAuth, accController.manageAccount);
 
+router.get("/logout", accController.logoutClient);
 
-// middleware
 
 module.exports = router;
