@@ -17,13 +17,18 @@
     </ul>
 <% } %>
 
-<h1>You're Logged In</h1>
-<h1> <%= locals.clientData.client_type %> </h1>
-<h1> <%= locals.clientData.client_firstname %> </h1>
+<h2> You're Logged In </h2>
 
-<% if(locals.clientData.client_type) { %>
-    <span class="add-classification"><a href="/inv/add-classification">Add New Classification</a></span>
-    <span class="add-vehicle"><a href="/inv/add-classification">Add New Vehicle</a></span>
+<% if(locals.clientData.client_type == 'Admin' || locals.clientData.client_type == 'Employee') { %>
+    <h2> Welcome <%= locals.clientData.client_firstname %> </h2>
+    <h3>Client type: <%= locals.clientData.client_type %> </h3>
+    <h3> Inventory Management </h3>
+    <p class="management-view"><a href='/inv/'>Inventory Management</p>
+    <!-- <span class="add-classification"><a href="/inv/add-classification">Add New Classification</a></span>
+    <br>
+    <span class="add-vehicle"><a href="/inv/add-classification">Add New Vehicle</a></span> -->
+<% } else { %>
+    <h1> Welcome <%= locals.clientData.client_firstname %> </h1>
 <% } %>
     
  

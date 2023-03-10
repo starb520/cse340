@@ -118,7 +118,7 @@ async function loginClient(req, res) {
 async function manageAccount(req, res, next) {
   let nav = await utilities.getNav()
   res.render("clients/account-management.ejs", {
-    title: "Login",
+    title: null,
     nav,
     message: null,
     errors: null,

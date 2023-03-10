@@ -67,17 +67,42 @@ Util.displayClassifications = async function (classification_id = null) {
 }
 
 
+// /* ****************************************
+// * Middleware to check token validity
+// **************************************** */
+// Util.checkJWTToken = (req, res, next) => {
+//     jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function (err) {
+//       if (err) {
+//         return res.status(403).redirect("/client/login")
+//       }
+//     return next()
+//     })
+//   }
+
 /* ****************************************
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
-    jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function (err) {
-      if (err) {
-        return res.status(403).redirect("/client/login")
-      }
-    return next()
-    })
+    if (req.cookies.jwt) {
+      jwt.verify(
+        req.cookies.jwt,
+        process.env.ACCESS_TOKEN_SECRET,
+        function (err, clientData) {
+          if (err) {
+            res.clearCookie("jwt")
+            return res.redirect("/client/login")
+          }
+        res.locals.clientData = clientData
+        res.locals.loggedin = 1
+        next()
+        })
+    } else {
+      next()
+    }
   }
+
+
+
 
 /*****************************************
  *  Authorize JWT Token
@@ -95,18 +120,30 @@ Util.jwtAuth = (req, res, next) => {
     }
     }
 
-/******************************
- * Middleware to check for client login
- * See header.ejs partial and account-route file
- ******************************/
-Util.checkClientLogin = (req, res, next) => {
-    if(req.cookies.jwt) {
-        res.locals.loggedin = 1
-        next()
+// /******************************
+//  * Middleware to check for client login
+//  * See header.ejs partial and account-route file
+//  ******************************/
+// Util.checkClientLogin = (req, res, next) => {
+//     if(req.cookies.jwt) {
+//         res.locals.loggedin = 1
+//         next()
+//     } else {
+//         next()
+//     }
+// }
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+    if (res.locals.loggedin) {
+      next()
     } else {
-        next()
+      return res.redirect("/client/login")
     }
-}
+   }
+
 
 /*****************************
  * Middleware to check for client level.
@@ -114,18 +151,11 @@ Util.checkClientLogin = (req, res, next) => {
  * account-route file.
  *****************************/
 Util.checkClientLevel = (req, res, next) => {
-    const token = req.cookies.jwt
-    try {   
-        if (res.locals.client_type == "Admin" || res.locals.client_type == "Employee") {
-            res.locals.client_type = 1
-        }
-        else {
-            res.status(403).redirect("/")
-        }
+    if (res.locals.clientData.client_type == "Admin" || res.locals.clientData.client_type == "Employee") {
         next()
-    } catch (error){
-        return res.status(403).redirect("/")
+    } else {
+        res.redirect('/')
     }
-    }
+}
 
 module.exports = Util

@@ -14,13 +14,15 @@ const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const utilities = require("./utilities/index")
 
+
 /* ***********************
  * Middleware
  *************************/
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true})) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser())
-app.use(utilities.checkClientLogin)
+// app.use(utilities.checkClientLogin)
+app.use(utilities.checkJWTToken)
 
 
 
