@@ -5,9 +5,9 @@ const jwt = require("jsonwebtoken")
 require("dotenv").config
 
 
-/* ****************************************
+/*****************************************
 *  Deliver login view
-**************************************** */
+*****************************************/
 async function buildLogin(req, res, next) {
     let nav = await utilities.getNav()
     res.render("clients/login", {
@@ -21,7 +21,7 @@ async function buildLogin(req, res, next) {
 
 /*****************************************
 *  Deliver registration view
-**************************************** */
+*****************************************/
 async function buildRegister(req, res, next) {
   let nav = await utilities.getNav()
   res.render("clients/register", {
@@ -33,9 +33,9 @@ async function buildRegister(req, res, next) {
 }
 
 
-/* ****************************************
+/*****************************************
  *  Process registration request
- **************************************** */
+ *****************************************/
 async function registerClient(req, res) {
   let nav = await utilities.getNav()
   const { client_firstname, client_lastname, client_email, client_password } =
@@ -133,5 +133,6 @@ async function logoutClient(req, res, next) {
   res.clearCookie("jwt", { httpOnly: true })
   res.redirect('/')
 }
+
 
   module.exports = { buildLogin, buildRegister, registerClient, loginClient, manageAccount,  logoutClient}

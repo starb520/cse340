@@ -10,6 +10,7 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const baseController = require("./controllers/baseController")
+const errorController = require("./controllers/errorController")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const utilities = require("./utilities/index")
@@ -21,9 +22,7 @@ const utilities = require("./utilities/index")
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true})) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser())
-// app.use(utilities.checkClientLogin)
 app.use(utilities.checkJWTToken)
-
 
 
 /* ***********************
@@ -40,16 +39,36 @@ app.set("layout", "./layouts/layout")
 app.use(require("./routes/static"))
 
 // Index route
-// app.get("/", function(req, res){
-//   res.render("index", {title: "Home"})
-// })
-app.get("/", baseController.buildHome)
+app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // inventory route
-app.use("/inv", require("./routes/inventory-route"))
+app.use("/inv", utilities.handleErrors(require("./routes/inventory-route")))
 
 // account route
-app.use("/client", require("./routes/account-route"))
+app.use("/client", utilities.handleErrors(require("./routes/account-route")))
+
+// error route
+app.use("/error", utilities.handleErrors(require("./routes/error-route")))
+
+// File Not Found Route - must be last route in list
+app.use(async (req, res, next) => {
+  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
+})
+
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  if(err.status == 404) { message = err.message} else { message = 'Oh no! There was a crash. Maybe try a different route?' }
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
+    nav
+  })
+})
 
 
 /* ***********************

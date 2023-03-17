@@ -1,6 +1,5 @@
 const invModel = require("../models/inventory-model")  // path to the inventory-model, functions to query SQL database
 const utilities = require("../utilities")              // path to utilities folder
-
 const invCont = {}
 
 // build a view of vehicles when the user clicks on a classification

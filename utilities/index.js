@@ -67,21 +67,9 @@ Util.displayClassifications = async function (classification_id = null) {
 }
 
 
-// /* ****************************************
-// * Middleware to check token validity
-// **************************************** */
-// Util.checkJWTToken = (req, res, next) => {
-//     jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function (err) {
-//       if (err) {
-//         return res.status(403).redirect("/client/login")
-//       }
-//     return next()
-//     })
-//   }
-
-/* ****************************************
+/*****************************************
 * Middleware to check token validity
-**************************************** */
+*****************************************/
 Util.checkJWTToken = (req, res, next) => {
     if (req.cookies.jwt) {
       jwt.verify(
@@ -120,22 +108,10 @@ Util.jwtAuth = (req, res, next) => {
     }
     }
 
-// /******************************
-//  * Middleware to check for client login
-//  * See header.ejs partial and account-route file
-//  ******************************/
-// Util.checkClientLogin = (req, res, next) => {
-//     if(req.cookies.jwt) {
-//         res.locals.loggedin = 1
-//         next()
-//     } else {
-//         next()
-//     }
-// }
 
-/* ****************************************
+/*****************************************
  *  Check Login
- * ************************************ */
+ **************************************/
 Util.checkLogin = (req, res, next) => {
     if (res.locals.loggedin) {
       next()
@@ -157,5 +133,22 @@ Util.checkClientLevel = (req, res, next) => {
         res.redirect('/')
     }
 }
+
+/*****************************************
+ *  Middleware function to redirect user
+ *  to an error page.
+ **************************************/
+
+
+
+
+
+/*****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ *****************************************/
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
 
 module.exports = Util
