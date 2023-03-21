@@ -32,6 +32,10 @@ router.post("/add-vehicle",
     invValidate.checkVehicleData,
     utilities.handleErrors(invController.addNewVehicle));
 
+// build a route to display the classifications for a user
+router.get("/getVehicles/:classification_id", invController.getVehiclesJSON);
 
+// route to a view to allow editting of the vehicle information 
+router.get("/edit/:inv_id", invController.editVehicleView);
 
 module.exports = router;

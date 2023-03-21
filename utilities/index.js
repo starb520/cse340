@@ -134,14 +134,6 @@ Util.checkClientLevel = (req, res, next) => {
     }
 }
 
-/*****************************************
- *  Middleware function to redirect user
- *  to an error page.
- **************************************/
-
-
-
-
 
 /*****************************************
  * Middleware For Handling Errors

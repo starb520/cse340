@@ -35,11 +35,14 @@ invCont.buildByInventoryId = async function (req, res, next) {
 // function to give user options to add new classification or add new vehicle
 invCont.buildVehicleManagement = async function (req, res, next) {
     let nav = await utilities.getNav()
+    let classifications = await invModel.getClassifications()
+    let classificationSelect = await utilities.displayClassifications(classifications)
     res.render("../views/inventory/management-view.ejs", {
       title: "Vehicle Management",
       nav,
       message: null,
       errors: null,
+      classificationSelect,
     })
   }
 
@@ -83,7 +86,7 @@ invCont.addNewClassification = async function (req, res) {
   }
 
 
-// function to build a page to display a form to add a new classification
+// function to build a page to display a form to add a new vehicle
 invCont.getNewVehicle = async function (req, res, next) {
     let nav = await utilities.getNav()
     let classifications = await invModel.getClassifications()
@@ -127,5 +130,47 @@ invCont.addNewVehicle = async function (req, res) {
   }
 }
 
+/* ***************************
+ *  Return Vehicles by Classification As JSON
+ * ************************** */
+invCont.getVehiclesJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const vehicleData = await invModel.getVehiclesByClassificationId(classification_id)
+  if (vehicleData[0].inv_id) {
+    return res.json(vehicleData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
+
+
+/* ***************************
+ *  Build edit vehicle view
+ * ************************** */
+invCont.editVehicleView = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id)
+  let nav = await utilities.getNav()
+  const vehicleData = await invModel.getVehiclesByInventoryId(inv_id)
+  const classificationMenu = await utilities.displayClassifications(vehicleData[0].classification_id)
+  const vehicleName = `${vehicleData[0].inv_make} ${vehicleData[0].inv_model}`
+  res.render("../views/inventory/edit-vehicle.ejs", {
+    title: "Edit " + vehicleName,
+    nav,
+    classificationMenu: classificationMenu,
+    message: null,
+    errors: null,
+    inv_id: vehicleData[0].inv_id,
+    inv_make: vehicleData[0].inv_make,
+    inv_model: vehicleData[0].inv_model,
+    inv_year: vehicleData[0].inv_year,
+    inv_description: vehicleData[0].inv_description,
+    inv_image: vehicleData[0].inv_image,
+    inv_thumbnail: vehicleData[0].inv_thumbnail,
+    inv_price: vehicleData[0].inv_price,
+    inv_miles: vehicleData[0].inv_miles,
+    inv_color: vehicleData[0].inv_color,
+    classification_id: vehicleData[0].classification_id
+  })
+}
 
 module.exports = invCont;
