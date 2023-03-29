@@ -31,5 +31,14 @@ router.get("/", util.checkJWTToken, util.jwtAuth, util.handleErrors(accControlle
 
 router.get("/logout", util.handleErrors(accController.logoutClient));
 
+// route to a view to allow a user to update account information
+router.get("/update-account/:client_id", accController.updateAccountView);
+
+// route to handle the request to change a user's info
+router.post("/account-update", 
+    regValidate.updateClientInfoRules(), 
+    regValidate.checkupdateClientInfoData, 
+    accController.updateAccountInfo);
+
 
 module.exports = router;

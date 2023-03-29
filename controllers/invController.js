@@ -36,13 +36,13 @@ invCont.buildByInventoryId = async function (req, res, next) {
 invCont.buildVehicleManagement = async function (req, res, next) {
     let nav = await utilities.getNav()
     let classifications = await invModel.getClassifications()
-    let classificationSelect = await utilities.displayClassifications(classifications)
+    let classificationMenu = await utilities.displayClassifications(classifications)
     res.render("../views/inventory/management-view.ejs", {
       title: "Vehicle Management",
       nav,
       message: null,
       errors: null,
-      classificationSelect,
+      classificationMenu,
     })
   }
 
@@ -172,5 +172,120 @@ invCont.editVehicleView = async function (req, res, next) {
     classification_id: vehicleData[0].classification_id
   })
 }
+
+
+// add updated vehicle details to the inventory table
+invCont.updateVehicle = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const { inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year,
+    inv_miles, inv_color, classification_id, inv_id } =
+    req.body
+
+    const updateResult = await invModel.updateVehicle(
+      inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year,
+      inv_miles, inv_color, classification_id, inv_id
+  )
+  // console.log(regResult)
+  
+  if (updateResult) {
+    const classificationMenu = await utilities.displayClassifications(classification_id)
+    const vehicleName = inv_make + " " + inv_model
+    res.status(201).render("../views/inventory/management-view.ejs", {
+      title: "Vehicle Management",
+      nav,
+      message: `The ${vehicleName} was successfully updated.`,
+      errors: null,
+      classificationMenu,
+    })
+  } else {
+    const inv_id = inv_id
+    const classificationMenu = await utilities.displayClassifications(classification_id)
+    const vehicleName = `${inv_make} ${inv_model}`
+    res.status(501).render("../views/inventory/edit-vehicle.ejs", {
+      title: "Edit " + vehicleName,
+      nav,
+      classificationMenu: classificationMenu,
+      message: "Sorry, the insert failed.",
+      errors: null,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
+    })
+  }
+}
+
+
+/* ***************************
+ *  Build delete vehicle view
+ * ************************** */
+invCont.deleteVehicleView = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id)
+  let nav = await utilities.getNav()
+  const vehicleData = await invModel.getVehiclesByInventoryId(inv_id)
+  const classificationMenu = await utilities.displayClassifications(vehicleData[0].classification_id)
+  const vehicleName = `${vehicleData[0].inv_make} ${vehicleData[0].inv_model}`
+  res.render("../views/inventory/delete-vehicle.ejs", {
+    title: "Delete " + vehicleName,
+    nav,
+    classificationMenu: classificationMenu,
+    message: null,
+    errors: null,
+    inv_id: vehicleData[0].inv_id,
+    inv_make: vehicleData[0].inv_make,
+    inv_model: vehicleData[0].inv_model,
+    inv_year: vehicleData[0].inv_year,
+    inv_price: vehicleData[0].inv_price,
+    classification_id: vehicleData[0].classification_id
+  })
+}
+
+
+// delete the vehicle from the database
+invCont.deleteVehicle = async function (req, res, next) {
+  
+  let nav = await utilities.getNav()
+  const { inv_make, inv_model, inv_price, inv_year, classification_id, inv_id } = req.body
+
+  const deleteResult = await invModel.deleteVehicle(inv_id)
+  // console.log(regResult)
+  
+  if (deleteResult) {
+    const classificationMenu = await utilities.displayClassifications(classification_id)
+    const vehicleName = inv_make + " " + inv_model
+    res.status(201).render("../views/inventory/management-view.ejs", {
+      title: "Vehicle Management",
+      nav,
+      message: `The ${vehicleName} was successfully deleted.`,
+      errors: null,
+      classificationMenu,
+    })
+  } else {
+    const inv_id = inv_id
+    const classificationMenu = await utilities.displayClassifications(classification_id)
+    const vehicleName = `${inv_make} ${inv_model}`
+    res.status(501).render("../views/inventory/delete-vehicle.ejs", {
+      title: "Delete " + vehicleName,
+      nav,
+      classificationMenu: classificationMenu,
+      message: "Sorry, the delete failed.",
+      errors: null,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price,
+      classification_id,
+    })
+  }
+}
+
 
 module.exports = invCont;

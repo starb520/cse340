@@ -95,6 +95,7 @@ async function loginClient(req, res) {
       message,
       errors: null,
       client_email,
+      clientData,
     })
     return
   }
@@ -135,4 +136,55 @@ async function logoutClient(req, res, next) {
 }
 
 
-  module.exports = { buildLogin, buildRegister, registerClient, loginClient, manageAccount,  logoutClient}
+/* ***************************
+ *  Build delete vehicle view
+ * ************************** */
+async function updateAccountView(req, res, next) {
+  const client_id = parseInt(req.params.client_id)
+  let nav = await utilities.getNav()
+  const clientData = await accountModel.getClientById(client_id)
+  res.render("clients/account-update.ejs", {
+    title: "Update Account" ,
+    nav,
+    message: null,
+    errors: null,
+    client_firstname: clientData.client_firstname,
+    client_lastname: clientData.client_lastname,
+    client_email: clientData.client_email,
+    client_id: client_id, 
+  })
+}
+
+
+// delete the vehicle from the database
+async function updateAccountInfo(req, res, next) {
+  
+  let nav = await utilities.getNav()
+  const { client_firstname, client_lastname, client_email, client_id } = req.body
+ 
+  const updateResult = await accountModel.updateUserAccountInfo(client_firstname, client_lastname, client_email, client_id)
+  console.log(updateResult)
+  if (updateResult) {
+    res.status(201).render("../views/clients/account-management.ejs", {
+      title: "Account Management",
+      nav,
+      message: `${client_firstname} ${client_lastname} was successfully updated.`,
+      errors: null,
+    })
+  } else {
+    // const client_id = client_id
+    res.status(501).render("../views/clients/account-update.ejs", {
+      title: "Update Account Information",
+      nav,
+      message: "Sorry, the update information has failed.",
+      errors: null,
+      client_firstname,
+      client_lastname,
+      client_email,
+      client_id,
+    })
+  }
+}
+
+
+  module.exports = { buildLogin, buildRegister, registerClient, loginClient, manageAccount,  logoutClient, updateAccountView, updateAccountInfo }

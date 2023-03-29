@@ -143,4 +143,42 @@ validate.checkVehicleData = async (req, res, next) => {
     next()
   }
 
+
+/*************************************************
+* Use the vehicleRules to validate and find errors
+* when a user is editing a vehicle's information, if
+* there are errors return user to the edit view, else
+* call next() function to move through the add new vehicle
+* process.
+************************************************/
+validate.checkUpdateData = async (req, res, next) => {
+  const { inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color, classification_id, inv_id } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      let classifications = await inventoryModel.getClassifications()
+      let classificationMenu = await utilities.displayClassifications(classification_id)
+      const vehicleName = `${inv_make} ${inv_model}`
+      res.render("../views/inventory/edit-vehicle", {
+          errors,
+          message: null,
+          title: "Edit " + vehicleName,
+          nav,
+          inv_make,
+          inv_model,
+          inv_description,
+          inv_price,
+          inv_year,
+          inv_miles,
+          inv_color,
+          classification_id,
+          classificationMenu,
+          inv_id,
+      })
+      return
+  }
+  next()
+}
+
   module.exports = validate;

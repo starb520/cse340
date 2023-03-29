@@ -127,5 +127,57 @@ validate.checkLoginData = async (req, res, next) => {
     next()
   }
 
+/*  **********************************
+ *  Registration Data Validation Rules
+ * ********************************* */
+validate.updateClientInfoRules = () => {
+  return [
+    // firstname is required and must be string
+    body("client_firstname")
+      .trim()
+      .escape()
+      .isLength({ min: 1 })
+      .withMessage("Please provide a first name."), // on error this message is sent.
+
+    // lastname is required and must be string
+    body("client_lastname")
+      .trim()
+      .escape()
+      .isLength({ min: 1 })
+      .withMessage("Please provide a last name."), // on error this message is sent.
+
+    // valid email is required and cannot already exist in the DB
+    body("client_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail() // refer to validator.js docs
+      .withMessage("A valid email is required."),
+  ]
+}
+
+/*************************************************
+* Check data and return errors or continue to registration
+************************************************/
+validate.checkupdateClientInfoData = async (req, res, next) => {
+  const {client_firstname, client_lastname, client_email, client_id } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      res.render("../views/clients/account-update", {
+          errors,
+          message: null,
+          title: "Update Information",
+          nav,
+          client_firstname,
+          client_lastname,
+          client_email,
+          client_id
+      })
+      return
+  }
+  next()
+}
+
 
   module.exports = validate;

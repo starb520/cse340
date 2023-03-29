@@ -38,4 +38,17 @@ router.get("/getVehicles/:classification_id", invController.getVehiclesJSON);
 // route to a view to allow editting of the vehicle information 
 router.get("/edit/:inv_id", invController.editVehicleView);
 
+// route to handle the request to update a vehicle's details
+router.post("/edit-vehicle", 
+    invValidate.vehicleRules(), 
+    invValidate.checkUpdateData,
+    invController.updateVehicle, 
+    );
+
+// route to a view to allow deleting of the vehicle information 
+router.get("/delete/:inv_id", invController.deleteVehicleView);
+
+// route to handle the request to delete a vehicle's details
+router.post("/delete-vehicle", invController.deleteVehicle);
+
 module.exports = router;

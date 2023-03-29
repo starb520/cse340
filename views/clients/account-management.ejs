@@ -19,6 +19,9 @@
 
 <h2> You're Logged In </h2>
 
+<!-- update account information link after a user has logged in -->
+<span class="account-view"><a href='/client/update-account/<%= clientData.client_id %>'>Account Management</a></span>
+
 <% if(locals.clientData.client_type == 'Admin' || locals.clientData.client_type == 'Employee') { %>
     <h2> Welcome <%= locals.clientData.client_firstname %> </h2>
     <h3>Client type: <%= locals.clientData.client_type %> </h3>

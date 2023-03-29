@@ -1,0 +1,43 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      
+    } %>
+
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+    <% } %>
+    
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<p>Confirm Deletion - The delete is permanent.</p>
+
+<form action="/inv/delete-vehicle" method="post">
+    <label for="classification_id">Classification Name</label>
+    <%- classificationMenu %>
+
+    <label for="inv_make">Make</label>
+    <input type="text" name="inv_make" id="inv_make" placeholder="Min of 3 characters" required pattern="^[a-zA-Z]{3,}$" value="<%= locals.inv_make %>" readonly>
+
+    <label for="inv_model">Model</label>
+    <input type="text" name="inv_model" id="inv_model" placeholder="Min of 3 characters" required pattern="^[a-zA-Z]{3,}$" value="<%= locals.inv_model %>" readonly>
+
+    <label for="inv_price">Price</label>
+    <input type="text" name="inv_price" id="inv_price" placeholder="e.g. 2500" required pattern="^\d+(.\d{1,2})?$" value="<%= locals.inv_price %>" readonly>
+
+    <label for="inv_year">Year</label>
+    <input type="text" name="inv_year" id="inv_year" placeholder="e.g. 2005" required pattern="^[12][0-9]{3}$" value="<%= locals.inv_year %>" readonly>
+
+    <input id="submit" type="submit" value="Delete Vehicle">
+
+    <!-- a hidden field so that the inv_id can be passed so updated info can be added to the database -->
+    <input type="hidden" name="inv_id"
+        <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+
+</form>
