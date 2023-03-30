@@ -292,9 +292,27 @@ form p {
   margin-top: 5px;
 }
 
-.account-view {
-  margin-left: 5%;
+
+#acc-management {
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
 }
+
+#account-management {
+  margin: auto;
+  text-align: center;
+  width: 210px;
+}
+
+#password-management {
+  margin: auto;
+  text-align: center;
+  width: 210px;
+}
+
 @media only screen and (min-width: 640px) {
   html {
     background-image: url("/images/site/small_check.jpg");
@@ -374,4 +392,7 @@ form p {
     width: 50%;
   }
  
+  #acc-management {
+    flex-direction: row;
+  }
 }

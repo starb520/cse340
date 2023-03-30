@@ -41,6 +41,8 @@ router.post("/account-update",
     util.handleErrors(accController.updateAccountInfo));
 
 router.post("/password-update", 
+    regValidate.passwordRules(),
+    regValidate.checkPasswordData,
     util.handleErrors(accController.updatePassword))
 
 

@@ -107,8 +107,8 @@ validate.loginRules = () => {
   }
 
 /*************************************************
-   * Check data and return errors or continue to login
-   ************************************************/
+* Check data and return errors or continue to login
+************************************************/
 validate.checkLoginData = async (req, res, next) => {
     const { client_email } = req.body
     let errors = []
@@ -179,5 +179,48 @@ validate.checkupdateClientInfoData = async (req, res, next) => {
   next()
 }
 
+/***********************************
+*  Password Validation Rules
+***********************************/
+validate.passwordRules = () => {
+  return [
+    // password is required and must be strong password
+    body("client_password")
+      .trim()
+      .isStrongPassword({
+        minLength: 12,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage("Password does not meet requirements."),
+  ]
+}
 
+/*************************************************
+* Check password  and return errors or continue to
+* update user's password
+************************************************/
+validate.checkPasswordData = async (req, res, next) => {
+  const {client_firstname, client_lastname, client_email, client_id, client_password } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      res.render("../views/clients/account-update", {
+          errors,
+          message: null,
+          title: " ",
+          nav,
+          client_password,
+          client_firstname,
+          client_lastname,
+          client_email,
+          client_id,
+      })
+      return
+  }
+  next()
+}
   module.exports = validate;

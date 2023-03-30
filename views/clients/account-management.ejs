@@ -17,18 +17,24 @@
     </ul>
 <% } %>
 
-<!-- <h2> You're Logged In </h2> -->
 
-<!-- update account information link after a user has logged in -->
-<span class="account-view"><a href='/client/update-account/<%= clientData.client_id %>'>Account Management</a></span>
 
 <% if(locals.clientData.client_type == 'Admin' || locals.clientData.client_type == 'Employee') { %>
     <h2> Welcome <%= locals.clientData.client_firstname %> </h2>
     <h3>Client type: <%= locals.clientData.client_type %> </h3>
-    <h3> Inventory Management </h3>
-    <span class="account-view"><a href='/inv/'>Inventory Management</a></span>
 <% } else { %>
     <h1> Welcome <%= locals.clientData.client_firstname %> </h1>
 <% } %>
-    
- 
+
+<div id="acc-management">
+<!-- update account information link after a user has logged in -->
+<div id="account-management">
+<h3>Account Management</h3>
+<span class="account-view"><a href='/client/update-account/<%= clientData.client_id %>'>Account Management</a></span>
+</div>
+
+<div id="password-management">
+<h3> Inventory Management </h3>
+<span class="account-view"><a href='/inv/'>Inventory Management</a></span>
+</div>  
+</div>
