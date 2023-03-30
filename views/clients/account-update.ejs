@@ -51,4 +51,9 @@
     <!-- a hidden field so that the inv_id can be passed so updated info can be added to the database -->
     <input type="hidden" name="client_id"
         <% if(client_id) { %> value="<%= client_id %>" <% } %>>
+   
+    <input type="hidden" name="client_firstname" value="<%= client_firstname %>">
+    <input type="hidden" name="client_lastname" value="<%= client_lastname %>">
+    <input type="hidden" name="client_email" value="<%= client_email %>">
+    
 </form>

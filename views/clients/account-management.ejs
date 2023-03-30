@@ -1,5 +1,5 @@
 <% if (title) { %>
-    <h1><%= title %></h1>
+    <h2><%= title %></h2>
     <% } else {
       
     } %>
@@ -17,7 +17,7 @@
     </ul>
 <% } %>
 
-<h2> You're Logged In </h2>
+<!-- <h2> You're Logged In </h2> -->
 
 <!-- update account information link after a user has logged in -->
 <span class="account-view"><a href='/client/update-account/<%= clientData.client_id %>'>Account Management</a></span>
@@ -26,7 +26,7 @@
     <h2> Welcome <%= locals.clientData.client_firstname %> </h2>
     <h3>Client type: <%= locals.clientData.client_type %> </h3>
     <h3> Inventory Management </h3>
-    <span class="management-view"><a href='/inv/'>Inventory Management</a></span>
+    <span class="account-view"><a href='/inv/'>Inventory Management</a></span>
 <% } else { %>
     <h1> Welcome <%= locals.clientData.client_firstname %> </h1>
 <% } %>

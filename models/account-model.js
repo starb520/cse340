@@ -89,6 +89,24 @@ async function updateUserAccountInfo (
   }
 }
 
+/************************************
+ * Update a User's(client's) password
+ ***********************************/
+async function updateUserPassword (
+  client_password, client_id ) {
+  try {
+      const sql = 
+          "UPDATE client SET client_password = $1 WHERE client_id = $2 RETURNING *"
+      const data = await pool.query(sql, [
+        client_password,  
+        client_id
+      ]) 
+      return data.rows[0]
+  } catch (error) {
+      return error.message
+  }
+}
+
 
 // adds the functions created in this file to exports to make them available elsewhere when needed
-module.exports = { registerClient, checkExistingEmail, getClientByEmail, getClientById, updateUserAccountInfo };
+module.exports = { registerClient, checkExistingEmail, getClientByEmail, getClientById, updateUserAccountInfo, updateUserPassword };

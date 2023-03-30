@@ -38,7 +38,10 @@ router.get("/update-account/:client_id", accController.updateAccountView);
 router.post("/account-update", 
     regValidate.updateClientInfoRules(), 
     regValidate.checkupdateClientInfoData, 
-    accController.updateAccountInfo);
+    util.handleErrors(accController.updateAccountInfo));
+
+router.post("/password-update", 
+    util.handleErrors(accController.updatePassword))
 
 
 module.exports = router;

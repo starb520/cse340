@@ -119,7 +119,7 @@ async function loginClient(req, res) {
 async function manageAccount(req, res, next) {
   let nav = await utilities.getNav()
   res.render("clients/account-management.ejs", {
-    title: null,
+    title: "You Are Logged In",
     nav,
     message: null,
     errors: null,
@@ -152,13 +152,13 @@ async function updateAccountView(req, res, next) {
     client_lastname: clientData.client_lastname,
     client_email: clientData.client_email,
     client_id: client_id, 
+    clientData,
   })
 }
 
 
-// delete the vehicle from the database
+// update the client information in the database
 async function updateAccountInfo(req, res, next) {
-  
   let nav = await utilities.getNav()
   const { client_firstname, client_lastname, client_email, client_id } = req.body
  
@@ -187,4 +187,51 @@ async function updateAccountInfo(req, res, next) {
 }
 
 
-  module.exports = { buildLogin, buildRegister, registerClient, loginClient, manageAccount,  logoutClient, updateAccountView, updateAccountInfo }
+/*****************************************
+ *  Update a User's Password
+ *****************************************/
+async function updatePassword(req, res) {
+  let nav = await utilities.getNav()
+  const { client_firstname, client_lastname, client_email, client_password, client_id } =
+    req.body
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // pass regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(client_password, 10)
+  } catch (error) {
+    res.status(500).render("../views/clients/account-update.ejs", {
+      title: "Password Update",
+      nav,
+      message: 'Sorry, there was an error processing the password update.',
+      errors: null,
+      client_firstname,
+      client_lastname,
+      client_email,
+      client_id,
+    })
+  }
+  const updatePasswordResult = await accountModel.updateUserPassword(
+    hashedPassword,
+    client_id
+  )
+  if (updatePasswordResult) {
+    res.status(201).render("../views/clients/account-management.ejs", {
+      title: " ",
+      nav,
+      message: `Congratulations ${client_firstname}, you\'ve updated your password.`,
+      errors: null,
+    })
+  } else {
+    const message = "Sorry, the update failed."
+    res.status(501).render("../views/clients/account-update.ejs", {
+      title: "Update Password",
+      nav,
+      message,
+      errors: null,
+    })
+  }
+}
+
+
+  module.exports = { buildLogin, buildRegister, registerClient, loginClient, manageAccount,  logoutClient, updateAccountView, updateAccountInfo, updatePassword }
