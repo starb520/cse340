@@ -30,7 +30,7 @@
     <input type="email" id="client_email" name="client_email" required value="<%= client_email %>">
 
     <!-- register button -->
-    <input id="submit" type="submit" value="Update Account">
+    <input id="submit_button" type="submit" value="Update Account">
 
     <!-- a hidden field so that the inv_id can be passed so updated info can be added to the database -->
     <input type="hidden" name="client_id"
@@ -42,6 +42,7 @@
 
     <!-- password, 12 chars, 1 capital, 1 number, 1 special character -->
     <!-- <label  for="client_password">Password</label> -->
+    <label for="client_password">Password:</label>
     <div id="passwordReqs">Password must contain at least 12 characters, 1 capital letter, 1 number, and 1 special character.</div>
     <input type="password" id="client_password" name="client_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
     

@@ -217,7 +217,7 @@ async function updatePassword(req, res) {
   )
   if (updatePasswordResult) {
     res.status(201).render("../views/clients/account-management.ejs", {
-      title: " ",
+      title: "Account",
       nav,
       message: `Congratulations ${client_firstname}, you\'ve updated your password.`,
       errors: null,
