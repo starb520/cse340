@@ -24,7 +24,7 @@
     <input type="text" name="inv_make" id="inv_make" placeholder="Min of 3 characters" required pattern="^[a-zA-Z]{3,}$" value="<%= locals.inv_make %>">
 
     <label for="inv_model">Model</label>
-    <input type="text" name="inv_model" id="inv_model" placeholder="Min of 3 characters" required pattern="^[a-zA-Z]{3,}$" value="<%= locals.inv_model %>">
+    <input type="text" name="inv_model" id="inv_model" placeholder="Min of 3 characters" required pattern="^[A-Za-z0-9]+(?:\s?[A-Za-z0-9]+)*$" value="<%= locals.inv_model %>">
 
     <label for="inv_description">Description</label>
     <textarea name="inv_description" id="inv_description" required><%= locals.inv_description %></textarea>

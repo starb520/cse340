@@ -56,13 +56,13 @@ validate.checkClassificationData = async (req, res, next) => {
  * ********************************* */
 validate.vehicleRules = () => {
     return [
-      // firstname is required and must be string
+      // make is required and must be string
       body("inv_make")
         .trim()
         .isLength({ min: 3 })
         .withMessage("Please provide the vehicle make."),
   
-      // lastname is required and must be string
+      // model is required and must be string
       body("inv_model")
         .trim()
         .escape()
@@ -75,7 +75,6 @@ validate.vehicleRules = () => {
         .isLength({min: 3})
         .withMessage("Please provide a vehicle description."),
   
-      // password is required and must be strong password
       body("inv_price")
         .trim()
         .escape()
@@ -83,7 +82,6 @@ validate.vehicleRules = () => {
         .isNumeric()
         .withMessage("Please provide the vehicle price"),
 
-      // valid email is required and cannot already exist in the DB
       body("inv_year")
         .trim()
         .escape()
@@ -91,15 +89,13 @@ validate.vehicleRules = () => {
         .isLength({ min: 4 })
         .withMessage("Please provide the vehicle year."),
 
-      // valid email is required and cannot already exist in the DB
       body("inv_miles")
         .trim()
         .escape()
         .isNumeric()
         .isLength({ min: 1 })
         .withMessage("Please provide the number of miles."),
-
-      // valid email is required and cannot already exist in the DB
+        
       body("inv_color")
         .trim()
         .escape()
